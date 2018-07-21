@@ -1,0 +1,19 @@
+{
+  "name": "liri-bot",
+  "version": "1.0.0",
+  "description": "Language interpreter ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/katelynmanuel/liri-bot.git"
+  },
+  "author": "Katelyn Manuel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/katelynmanuel/liri-bot/issues"
+  },
+  "homepage": "https://github.com/katelynmanuel/liri-bot#readme"
+}
