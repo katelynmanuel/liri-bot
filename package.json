@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/katelynmanuel/liri-bot/issues"
   },
-  "homepage": "https://github.com/katelynmanuel/liri-bot#readme"
+  "homepage": "https://github.com/katelynmanuel/liri-bot#readme",
+  "dependencies": {
+    "request": "^2.87.0"
+  }
 }
