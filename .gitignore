@@ -61,6 +61,10 @@ typings/
 .next
 
 node_modules
+
+#system specific
 .DS_Store
+
+#keys
 .env
 
