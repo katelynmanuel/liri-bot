@@ -16,7 +16,7 @@ var cmdArgs = process.argv;
 // The LIRI command is the second argument
 var liriCommand = cmdArgs[2];
 
-//  may contain spaces fix - you will need this for song and movie information. 
+//Spaces fix and liriArg stuff. 
 var liriArg = '';
 
 for (let i = 3; i < cmdArgs.length; i++) {
@@ -39,6 +39,16 @@ function displayTweets() {
             console.log("===========================");
             console.log(j + 1 + ". ", tweets[j].text)
             console.log("");
+            
+            //Adds tweets to file
+            fs.appendFile('log.txt', "@clearly_liri: " + tweets[j].text, function (err) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log("Content was added.");
+                }
+                
+            });
         }
     })
 };
@@ -55,18 +65,19 @@ function displaySpotify(song) {
         if (err) {
             return console.log("Error occurred: " + err);
         }
-        var artistName = data.tracks.items[0].artists[0].name;
-        var albumName = data.tracks.items[0].album.artists[0].name;
-        var songName = data.tracks.items[0].name;
-        var previewLink = data.tracks.items[0].external_urls.spotify;
+        
+        var spotifyInformation = "Artist Name: " + data.tracks.items[0].artists[0].name + "\n" + "Album Name: " + data.tracks.items[0].album.artists[0].name + "\n" + "Song Name: " + data.tracks.items[0].name + "\n" + "Link: " + data.tracks.items[0].external_urls.spotify + "\n";
+        
+        console.log(spotifyInformation);
 
-        //Display Spotify Information
-        console.log(
-            "Artist Name: " + artistName + "\n" +
-            "Album Name: " + albumName + "\n" +
-            "Song Name: " + songName + "\n" +
-            "Link: " + previewLink + "\n"
-        );
+        fs.appendFile('log.txt', spotifyInformation, function (err) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log("Content was added.");
+            }
+            
+        });
     });
 };
 
@@ -79,39 +90,34 @@ function displayMovie() {
         if (error) {
             console.log("Error Occurred: " + error);
         }
-        // console.log(object);
-        var movieTitle = object.Title;
-        var movieYear = object.Year;
-        var imdbRating = object.Ratings[0].Value;
-        var rottenRating = object.Ratings[1].Value;
-        var country = object.Country;
-        var movielanguage = object.Language;
-        var plot = object.Plot;
-        var actors = object.Actors;
+        
+        var movieInformation = "Movie Title: " + object.Title + "\n" + "Year: " + object.Year + "\n" + "iMDB Rating: " + object.Ratings[0].Value + "\n" + "Rotten Tomatoes Rating: " + "\n" + object.Ratings[1].Value + "\n" + "Country: " + object.Country + "\n" +  "Languages: " + object.Language + "\n" + "Plot: " + object.Plot + "\n" + "Actors: " + object.Actors;
+        //Display Movie Information
+        console.log(movieInformation);
 
-        console.log(
-            "Movie Title: " + movieTitle + "\n" + 
-            "Year : " + movieYear + "\n" +
-            "IMDB Rating: " + imdbRating + "\n" +
-            "Rotten Tomatoes Rating: " + rottenRating + "\n" +
-            "Country: " + country + "\n" + 
-            "Languages: " + movielanguage + "/n" + 
-            "Plot: " + plot + "\n" + 
-            "Actors: " + actors
-        );
+        //Append Movie Information to Log.txt file. 
+        fs.appendFile('log.txt', movieInformation, function (err) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log("Content was added.");
+            }
+            
+        });
     })
 };
 
 //Function to read random.txt 
-function doWhatItSays () {
+function doWhatItSays() {
     fs.readFile("random.txt", "utf8", function (error, data) {
         if (error) {
             console.log("Error Occurred: " + error);
         }
         console.log(data);
+        var text = data.split(',');
+        displaySpotify(text[1]);
     });
-}
-
+};
 
 //Log tweets if Liri command equals my-tweets
 if (liriCommand === "my-tweets") {
@@ -135,16 +141,3 @@ if (liriCommand === "do-what-it-says") {
     console.log("Spotify Information for 'I Want it That Way': ");
     doWhatItSays();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
