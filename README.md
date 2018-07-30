@@ -10,7 +10,7 @@ spotify-this-song
 movie-this
 do-what-it-says
 
-### Technolgies Used
+### Technologies Used
 Node.js
 Twitter NPM Package
 Spotify NPM Package
